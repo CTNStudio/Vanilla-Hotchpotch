@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "vanilla_hotchpotch:block/saucepan"
+    },
+    "facing=south": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 270
+    }
+  }
+}
