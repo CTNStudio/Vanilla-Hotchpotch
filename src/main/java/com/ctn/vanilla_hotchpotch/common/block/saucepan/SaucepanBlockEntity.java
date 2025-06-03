@@ -19,26 +19,28 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
-import static com.ctn.vanilla_hotchpotch.init.VhBlockEntitys.SAUCEPAN_BLOCK_ENTITY_TYPE;
+import static com.ctn.vanilla_hotchpotch.init.VhBlockEntityTypes.SAUCEPAN_BLOCK_ENTITY_TYPE;
 
 /**
  * 炖锅方块实体类
  * 用于处理炖锅中的物品存储、烹饪状态以及数据同步
  */
-public class SaucepanBlockEntity extends RandomizableContainerBlockEntity implements IFluidHandler {
+public class SaucepanBlockEntity extends RandomizableContainerBlockEntity {
+	private final ItemStackHandler itemHandler;
 	// 存储炖锅中的物品列表
 	private final NonEmptyItemList items;
 	// 液体容器
-	private final FluidTank        fluidTank;
+	private final FluidTank        fluidTankHandler;
 	// 烹饪进行的刻数
 	private       int              cookingTick = 0;
 	// 烹饪的总刻数
-	private       int              totalTick   = 0;
+	private       int           totalTick   = 0;
 
 	/**
 	 * 构造函数
@@ -49,8 +51,10 @@ public class SaucepanBlockEntity extends RandomizableContainerBlockEntity implem
 	 */
 	public SaucepanBlockEntity(BlockPos pos, BlockState blockState, int capacity) {
 		super(SAUCEPAN_BLOCK_ENTITY_TYPE.get(), pos, blockState);
-		fluidTank = new FluidTank(capacity);
-		items     = NonEmptyItemList.create();
+		fluidTankHandler = new FluidTank(capacity);
+		items            = NonEmptyItemList.create();
+		items.add(ItemStack.EMPTY);
+		itemHandler = new ItemStackHandler(items);
 	}
 
 	public SaucepanBlockEntity(BlockPos pos, BlockState blockState) {
@@ -78,7 +82,7 @@ public class SaucepanBlockEntity extends RandomizableContainerBlockEntity implem
 	@Override
 	public void loadAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider registries) {
 		super.loadAdditional(nbt, registries);
-		fluidTank.readFromNBT(registries, nbt);
+		fluidTankHandler.readFromNBT(registries, nbt);
 		cookingTick = nbt.getInt("cookingTick");
 		totalTick   = nbt.getInt("totalTick");
 		if (!this.tryLoadLootTable(nbt)) {
@@ -95,7 +99,7 @@ public class SaucepanBlockEntity extends RandomizableContainerBlockEntity implem
 	@Override
 	public void saveAdditional(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider registries) {
 		super.saveAdditional(nbt, registries);
-		fluidTank.writeToNBT(registries, nbt);
+		fluidTankHandler.writeToNBT(registries, nbt);
 		nbt.putInt("cookingTick", getCookingTick());
 		nbt.putInt("totalTick", getTotalTick());
 		if (!this.trySaveLootTable(nbt)) {
@@ -188,18 +192,27 @@ public class SaucepanBlockEntity extends RandomizableContainerBlockEntity implem
 	/**
 	 * 设置物品列表
 	 *
-	 * @param items 新的物品列表
+	 * @param stacks 新的物品列表
 	 */
 	@Override
-	protected void setItems(NonNullList<ItemStack> items) {
+	protected void setItems(NonNullList<ItemStack> stacks) {
 		this.items.clear();
-		for (int i = 0, itemsSize = items.size(); i < itemsSize; i++) {
-			if (items.get(i).isEmpty()) {
+		for (ItemStack itemStack : stacks) {
+			if (itemStack.isEmpty()) {
 				continue;
 			}
-			this.items.set(i, items.get(i));
+			addItem(itemStack);
 		}
 		setChanged();
+	}
+
+	@Override
+	public void setItem(int index, @NotNull ItemStack stack) {
+		if (items.isEmpty()) {
+			addItem(stack);
+			return;
+		}
+		super.setItem(index, stack);
 	}
 
 	@Override
@@ -224,7 +237,15 @@ public class SaucepanBlockEntity extends RandomizableContainerBlockEntity implem
 
 	@Override
 	public int getContainerSize() {
-		return this.items.size();
+		return items.size();
+	}
+
+	@Override
+	public @NotNull ItemStack removeItem(int index, int count) {
+		if (items.size() - 1 < index) {
+			return ItemStack.EMPTY;
+		}
+		return super.removeItem(index, count);
 	}
 
 	@Override
@@ -236,38 +257,11 @@ public class SaucepanBlockEntity extends RandomizableContainerBlockEntity implem
 	public void updateFluid() {
 	}
 
-	@Override
-	public int getTanks() {
-		return fluidTank.getTanks();
+	public IItemHandler getItemHandler() {
+		return itemHandler;
 	}
 
-	@Override
-	public @NotNull FluidStack getFluidInTank(int tank) {
-		return fluidTank.getFluidInTank(tank);
-	}
-
-	@Override
-	public int getTankCapacity(int tank) {
-		return fluidTank.getTankCapacity(tank);
-	}
-
-	@Override
-	public boolean isFluidValid(int tank, @NotNull FluidStack stack) {
-		return fluidTank.isFluidValid(tank, stack);
-	}
-
-	@Override
-	public int fill(@NotNull FluidStack resource, @NotNull FluidAction action) {
-		return fluidTank.fill(resource, action);
-	}
-
-	@Override
-	public @NotNull FluidStack drain(@NotNull FluidStack resource, @NotNull FluidAction action) {
-		return fluidTank.drain(resource, action);
-	}
-
-	@Override
-	public @NotNull FluidStack drain(int maxDrain, @NotNull FluidAction action) {
-		return fluidTank.drain(maxDrain, action);
+	public IFluidHandler getFluidTankHandler() {
+		return fluidTankHandler;
 	}
 }

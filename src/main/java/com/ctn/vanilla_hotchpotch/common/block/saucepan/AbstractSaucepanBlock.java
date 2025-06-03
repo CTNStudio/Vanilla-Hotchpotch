@@ -37,7 +37,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 import static com.ctn.vanilla_hotchpotch.common.block.saucepan.SaucepanBlockEntity.getBlockEntity;
-import static com.ctn.vanilla_hotchpotch.init.VhBlockEntitys.SAUCEPAN_BLOCK_ENTITY_TYPE;
+import static com.ctn.vanilla_hotchpotch.init.VhBlockEntityTypes.SAUCEPAN_BLOCK_ENTITY_TYPE;
 import static net.minecraft.world.Containers.dropContentsOnDestroy;
 import static net.minecraft.world.ItemInteractionResult.*;
 
@@ -45,7 +45,8 @@ import static net.minecraft.world.ItemInteractionResult.*;
  * 炖锅方块类，继承自BaseEntityBlock并实现EntityBlock接口。
  * 表示一个可以包含方块实体的方块。
  */
-public abstract class AbstractSaucepanBlock<E extends SaucepanBlockEntity> extends BaseEntityBlock implements BucketPickup, EntityBlock, LiquidBlockContainer {
+public abstract class AbstractSaucepanBlock<E extends SaucepanBlockEntity> extends BaseEntityBlock
+		implements EntityBlock, BucketPickup, LiquidBlockContainer {
 	/**
 	 * 方向属性，表示该方块面对的方向。
 	 */

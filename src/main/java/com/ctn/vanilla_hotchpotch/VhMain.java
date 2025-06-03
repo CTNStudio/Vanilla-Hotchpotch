@@ -9,7 +9,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
-import static com.ctn.vanilla_hotchpotch.init.VhBlockEntitys.BLOCK_ENTITY_TYPE_REGISTER;
+import static com.ctn.vanilla_hotchpotch.init.VhBlockEntityTypes.BLOCK_ENTITY_TYPE_REGISTER;
 import static com.ctn.vanilla_hotchpotch.init.VhBlocks.BLOCK_REGISTER;
 import static com.ctn.vanilla_hotchpotch.init.VhEntitys.ENTITY_TYPE_REGISTER;
 import static com.ctn.vanilla_hotchpotch.init.VhItems.ITEM_REGISTER;

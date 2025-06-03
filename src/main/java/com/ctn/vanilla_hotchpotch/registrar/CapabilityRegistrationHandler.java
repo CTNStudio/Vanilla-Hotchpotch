@@ -1,6 +1,7 @@
 package com.ctn.vanilla_hotchpotch.registrar;
 
-import com.ctn.vanilla_hotchpotch.init.VhBlockEntitys;
+import com.ctn.vanilla_hotchpotch.init.VhBlockEntityTypes;
+import net.minecraft.core.Direction;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -14,7 +15,11 @@ public class CapabilityRegistrationHandler {
 	public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
 		event.registerBlockEntity(
 				Capabilities.FluidHandler.BLOCK,
-				VhBlockEntitys.SAUCEPAN_BLOCK_ENTITY_TYPE.get(),
-				(saucepanBlockEntity, direction) -> saucepanBlockEntity);
+				VhBlockEntityTypes.SAUCEPAN_BLOCK_ENTITY_TYPE.get(),
+				(be, context) -> be.getFluidTankHandler());
+		event.registerBlockEntity(
+				Capabilities.ItemHandler.BLOCK,
+				VhBlockEntityTypes.SAUCEPAN_BLOCK_ENTITY_TYPE.get(),
+				(be, context) -> be.getItemHandler());
 	}
 }

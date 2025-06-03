@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.stream.Stream;
 
 import static com.ctn.vanilla_hotchpotch.common.block.saucepan.SaucepanBlockEntity.getBlockEntity;
-import static com.ctn.vanilla_hotchpotch.init.VhBlockEntitys.SAUCEPAN_BLOCK_ENTITY_TYPE;
+import static com.ctn.vanilla_hotchpotch.init.VhBlockEntityTypes.SAUCEPAN_BLOCK_ENTITY_TYPE;
 
 /**
  * 炖锅方块类，继承自BaseEntityBlock并实现EntityBlock接口。
@@ -64,7 +64,7 @@ public class SaucepanBlock extends AbstractSaucepanBlock<SaucepanBlockEntity> {
 	}
 
 	private static void extractFluid(SaucepanBlockEntity blockEntity, FluidStack fluid, int amount) {
-		blockEntity.drain(new FluidStack(fluid.getFluidHolder(), amount), IFluidHandler.FluidAction.EXECUTE);
+		blockEntity.getFluidTankHandler().drain(new FluidStack(fluid.getFluidHolder(), amount), IFluidHandler.FluidAction.EXECUTE);
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class SaucepanBlock extends AbstractSaucepanBlock<SaucepanBlockEntity> {
 			return ItemStack.EMPTY;
 		}
 
-		FluidStack fluid = blockEntity.getFluidInTank(0);
+		FluidStack fluid = blockEntity.getFluidTankHandler().getFluidInTank(0);
 		if (fluid.getFluid().isSame(Fluids.EMPTY)) {
 			return ItemStack.EMPTY;
 		}
@@ -148,24 +148,24 @@ public class SaucepanBlock extends AbstractSaucepanBlock<SaucepanBlockEntity> {
 		if (fluid.isSame(Fluids.EMPTY)) {
 			return false;
 		}
-		if (!blockEntity.getFluidInTank(0).isEmpty()) {
-			if (!blockEntity.getFluidInTank(0).is(fluid.getFluidType())) {
+		if (!blockEntity.getFluidTankHandler().getFluidInTank(0).isEmpty()) {
+			if (!blockEntity.getFluidTankHandler().getFluidInTank(0).is(fluid.getFluidType())) {
 				return false;
 			}
 		}
 		if (player != null) {
 			ItemStack stack = player.getMainHandItem();
 			if (stack.is(Tags.Items.BUCKETS)) {
-				blockEntity.fill(new FluidStack(fluid, 1000), IFluidHandler.FluidAction.EXECUTE);
+				blockEntity.getFluidTankHandler().fill(new FluidStack(fluid, 1000), IFluidHandler.FluidAction.EXECUTE);
 				return true;
 			}
 			if (stack.is(Tags.Items.DRINKS)) {
-				blockEntity.fill(new FluidStack(fluid, 250), IFluidHandler.FluidAction.EXECUTE);
+				blockEntity.getFluidTankHandler().fill(new FluidStack(fluid, 250), IFluidHandler.FluidAction.EXECUTE);
 				return true;
 			}
 		}
 
-		return blockEntity.getFluidInTank(0).getAmount() != blockEntity.getTankCapacity(0);
+		return blockEntity.getFluidTankHandler().getFluidInTank(0).getAmount() != blockEntity.getFluidTankHandler().getTankCapacity(0);
 	}
 
 	/**

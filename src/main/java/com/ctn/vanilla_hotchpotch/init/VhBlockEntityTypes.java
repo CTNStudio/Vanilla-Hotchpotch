@@ -14,7 +14,7 @@ import static com.ctn.vanilla_hotchpotch.VhMain.VH_ID;
 import static com.ctn.vanilla_hotchpotch.init.VhBlocks.SAUCEPAN;
 
 
-public class VhBlockEntitys {
+public class VhBlockEntityTypes {
 	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPE_REGISTER = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, VH_ID);
 
 	private static <B extends BlockEntity> Supplier<BlockEntityType<B>> register(final String name, BlockEntityType.BlockEntitySupplier<B> blockEntity, Supplier<Block> blocks) {

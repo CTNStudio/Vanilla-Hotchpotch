@@ -59,16 +59,17 @@ public class NonEmptyItemList extends NonNullList<ItemStack> {
 			index = 0;
 		}
 		ItemStack itemStack = super.set(index, value);
-		if (value.isEmpty()) {
-			remove(index);
-			return ItemStack.EMPTY;
-		}
+		add(0, ItemStack.EMPTY);
+		update();
 		return itemStack;
 	}
 
 	/** 更新 */
 	public void update() {
-		for (int i = size() - 1; i >= 0; i--) {
+		if (!get(0).isEmpty()) {
+			add(0, ItemStack.EMPTY);
+		}
+		for (int i = size() - 1; i >= 1; i--) {
 			if (get(i).isEmpty()) {
 				remove(i);
 			}
@@ -80,7 +81,7 @@ public class NonEmptyItemList extends NonNullList<ItemStack> {
 		if (index < 0) {
 			index = 0;
 		}
-		if (value.isEmpty()) return;
 		super.add(index, value);
+		update();
 	}
 }
