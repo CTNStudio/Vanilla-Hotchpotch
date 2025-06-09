@@ -3,11 +3,16 @@ package com.ctn.vanilla_hotchpotch.datagen;
 import com.ctn.vanilla_hotchpotch.init.VhBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.FluidTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
@@ -18,10 +23,12 @@ import java.util.concurrent.CompletableFuture;
 import static com.ctn.vanilla_hotchpotch.VhMain.VH_ID;
 
 public class VhTags {
-	public static class Block extends BlockTagsProvider {
-		public static final TagKey<net.minecraft.world.level.block.Block> SAUCEPAN = createTag("saucepan");
+	public static class Blocks extends BlockTagsProvider {
+		public static final TagKey<Block> SAUCEPAN = createTag("saucepan");
 
-		public Block(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
+		public Blocks(PackOutput output,
+				CompletableFuture<HolderLookup.Provider> lookupProvider,
+				@Nullable ExistingFileHelper existingFileHelper) {
 			super(output, lookupProvider, VH_ID, existingFileHelper);
 		}
 
@@ -36,17 +43,37 @@ public class VhTags {
 		}
 	}
 
-	public static class Item extends ItemTagsProvider {
-		public Item(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<net.minecraft.world.level.block.Block>> blockTags, @Nullable ExistingFileHelper existingFileHelper) {
+	public static class Items extends ItemTagsProvider {
+		public Items(PackOutput output,
+				CompletableFuture<HolderLookup.Provider> lookupProvider,
+				CompletableFuture<TagLookup<Block>> blockTags,
+				@Nullable ExistingFileHelper existingFileHelper) {
 			super(output, lookupProvider, blockTags, VH_ID, existingFileHelper);
 		}
 
-		protected static TagKey<net.minecraft.world.item.Item> createTag(String name) {
+		protected static TagKey<Item> createTag(String name) {
 			return ItemTags.create(ResourceLocation.fromNamespaceAndPath(VH_ID, name));
 		}
 
 		@Override
-		protected void addTags(HolderLookup.Provider provider) {
+		protected void addTags(HolderLookup.@NotNull Provider provider) {
+
+		}
+	}
+
+	public static class Fluids extends FluidTagsProvider {
+		public Fluids(PackOutput output,
+				CompletableFuture<HolderLookup.Provider> provider,
+				@Nullable ExistingFileHelper existingFileHelper) {
+			super(output, provider, VH_ID, existingFileHelper);
+		}
+
+		protected static TagKey<Fluid> createTag(String name) {
+			return FluidTags.create(ResourceLocation.fromNamespaceAndPath(VH_ID, name));
+		}
+
+		@Override
+		protected void addTags(HolderLookup.@NotNull Provider provider) {
 
 		}
 	}

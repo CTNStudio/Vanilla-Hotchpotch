@@ -40,7 +40,7 @@ public class SaucepanBlockEntity extends RandomizableContainerBlockEntity {
 	// 烹饪进行的刻数
 	private       int              cookingTick = 0;
 	// 烹饪的总刻数
-	private       int           totalTick   = 0;
+	private       int              totalTick   = 0;
 
 	/**
 	 * 构造函数

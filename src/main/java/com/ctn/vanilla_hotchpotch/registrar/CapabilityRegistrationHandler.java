@@ -1,7 +1,6 @@
 package com.ctn.vanilla_hotchpotch.registrar;
 
 import com.ctn.vanilla_hotchpotch.init.VhBlockEntityTypes;
-import net.minecraft.core.Direction;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;

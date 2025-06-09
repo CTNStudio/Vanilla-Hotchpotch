@@ -18,16 +18,16 @@ import static com.ctn.vanilla_hotchpotch.VhMain.VH_ID;
 public class VhTabs {
 	public static final DeferredRegister<CreativeModeTab> MOON_TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, VH_ID);
 
-	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BLOCK =
-			register(
-					"block", (name) -> createCreativeModeTab(
+	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BLOCK = register(
+			"block", (name) ->
+					createCreativeModeTab(
 							name, (parameters, output) -> {
 								output.accept(VhItems.SAUCEPAN.get());
-							}, () -> VhItems.SAUCEPAN.get().getDefaultInstance()));
+							},
+							VhItems.SAUCEPAN.get()::getDefaultInstance));
 
 	private static DeferredHolder<CreativeModeTab, CreativeModeTab> register(String name,
-			Function<String,
-					CreativeModeTab.Builder> builder) {
+			Function<String, CreativeModeTab.Builder> builder) {
 		return MOON_TAB_REGISTER.register(name, builder.apply(name)::build);
 	}
 

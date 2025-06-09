@@ -27,9 +27,9 @@ public class VhDatagenMain {
 		generator.addProvider(event.includeClient(), new I18ZhCn(output));
 		generator.addProvider(event.includeClient(), new ItemModel(output, fileHelper));
 		generator.addProvider(event.includeClient(), new BlockState(output, fileHelper));
-		VhTags.Block blockTags = new VhTags.Block(output, lookupProvider, fileHelper);
-		generator.addProvider(event.includeClient(), blockTags);
-		generator.addProvider(event.includeClient(), new VhTags.Item(output, lookupProvider, blockTags.contentsGetter(), fileHelper));
+		VhTags.Blocks blocksTags = new VhTags.Blocks(output, lookupProvider, fileHelper);
+		generator.addProvider(event.includeClient(), blocksTags);
+		generator.addProvider(event.includeClient(), new VhTags.Items(output, lookupProvider, blocksTags.contentsGetter(), fileHelper));
 
 	}
 }
