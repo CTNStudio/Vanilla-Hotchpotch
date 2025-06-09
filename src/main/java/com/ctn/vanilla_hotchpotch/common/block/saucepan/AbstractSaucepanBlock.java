@@ -29,6 +29,7 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandlerItem;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import static com.ctn.vanilla_hotchpotch.common.block.saucepan.SaucepanBlockEntity.getBlockEntity;
@@ -61,6 +62,18 @@ public abstract class AbstractSaucepanBlock<E extends SaucepanBlockEntity> exten
 				.setValue(FACING, Direction.NORTH));
 	}
 
+	private static void updateSelf(@NotNull final BlockEntity tile) {
+		Objects.requireNonNull(tile);
+
+		final BlockState state = tile.getBlockState();
+		final BlockPos pos = tile.getBlockPos();
+		final Level world = tile.getLevel();
+
+		Objects.requireNonNull(world);
+
+		world.setBlockAndUpdate(pos, state);
+	}
+
 	// 液体交互
 	private static boolean liquidInteractionOfItems(@NotNull ItemStack stack, @NotNull Player player, @NotNull InteractionHand hand, @NotNull SaucepanBlockEntity blockEntity) {
 		// 获取方块的流体处理
@@ -87,6 +100,7 @@ public abstract class AbstractSaucepanBlock<E extends SaucepanBlockEntity> exten
 					} else {
 						blockHandler.fill(copyItemHandler.drain(resource, IFluidHandler.FluidAction.EXECUTE), IFluidHandler.FluidAction.EXECUTE);
 					}
+
 					return true;
 				}
 			} else if (copyItemFluidStack.isEmpty() && !blockFluidStack.isEmpty()) { // 物品容器液体为空时 && 方块容器液体不为空时
@@ -101,6 +115,7 @@ public abstract class AbstractSaucepanBlock<E extends SaucepanBlockEntity> exten
 					} else {
 						blockHandler.drain(resource, IFluidHandler.FluidAction.EXECUTE);
 					}
+
 					return true;
 				}
 			}
@@ -163,6 +178,7 @@ public abstract class AbstractSaucepanBlock<E extends SaucepanBlockEntity> exten
 		}
 
 		if (!stack.isEmpty() && liquidInteractionOfItems(stack, player, hand, blockEntity)) {
+			updateSelf(blockEntity);
 			return SUCCESS;
 		}
 
