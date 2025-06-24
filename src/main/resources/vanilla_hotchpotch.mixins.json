@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "ctn.vanilla_hotchpotch.mixin",
+  "mixins": [
+    "FluidStateMixin"
+  ],
+  "client": [
+  ],
+  "server": [],
+  "minVersion": "0.8.7"
+}
