@@ -17,19 +17,26 @@ import static ctn.vanilla_hotchpotch.VhMain.VH_ID;
 
 public class VhTabs {
 	public static final DeferredRegister<CreativeModeTab> MOON_TAB_REGISTER = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, VH_ID);
-
+	
 	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BLOCK = register(
 			"block", (name) ->
 					createCreativeModeTab(
 							name, (parameters, output) -> {
 								output.accept(VhItems.SAUCEPAN);
 							}, () -> VhItems.SAUCEPAN.get().getDefaultInstance()));
-
+	
+	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MATERIAL = register(
+			"material", (name) ->
+					createCreativeModeTab(
+							name, (parameters, output) -> {
+								output.accept(VhItems.POTION_BUCKET);
+							}, () -> VhItems.POTION_BUCKET.get().getDefaultInstance()));
+	
 	private static DeferredHolder<CreativeModeTab, CreativeModeTab> register(String name,
 			Function<String, CreativeModeTab.Builder> builder) {
 		return MOON_TAB_REGISTER.register(name, builder.apply(name)::build);
 	}
-
+	
 	private static CreativeModeTab.Builder createCreativeModeTab(
 			String name,
 			CreativeModeTab.DisplayItemsGenerator displayItemsGenerator,
@@ -37,21 +44,21 @@ public class VhTabs {
 			ResourceKey<CreativeModeTab> withTabsBefore) {
 		return createCreativeModeTab(name, displayItemsGenerator, icon).withTabsBefore(withTabsBefore);
 	}
-
+	
 	private static CreativeModeTab.Builder createCreativeModeTab(
 			String name,
 			CreativeModeTab.DisplayItemsGenerator displayItemsGenerator,
 			Supplier<ItemStack> icon) {
 		return createCreativeModeTab(name, displayItemsGenerator).icon(icon);
 	}
-
+	
 	private static CreativeModeTab.Builder createCreativeModeTab(String name,
 			CreativeModeTab.DisplayItemsGenerator displayItemsGenerator) {
 		return CreativeModeTab.builder().title(getComponent(name)).displayItems(displayItemsGenerator);
 	}
-
+	
 	private static @NotNull MutableComponent getComponent(String imagePath) {
 		return Component.translatable("itemGroup." + VH_ID + "." + imagePath);
 	}
-
+	
 }

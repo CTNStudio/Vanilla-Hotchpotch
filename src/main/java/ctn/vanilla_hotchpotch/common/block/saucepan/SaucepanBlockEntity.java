@@ -41,7 +41,11 @@ public class SaucepanBlockEntity extends RandomizableContainerBlockEntity {
 	private       int              cookingTick = 0;
 	// 烹饪的总刻数
 	private       int              totalTick   = 0;
-
+	
+	public SaucepanBlockEntity(BlockPos pos, BlockState blockState) {
+		this(pos, blockState, 1000);
+	}
+	
 	/**
 	 * 构造函数
 	 * 初始化炖锅方块实体
@@ -52,15 +56,11 @@ public class SaucepanBlockEntity extends RandomizableContainerBlockEntity {
 	public SaucepanBlockEntity(BlockPos pos, BlockState blockState, int capacity) {
 		super(SAUCEPAN_BLOCK_ENTITY_TYPE.get(), pos, blockState);
 		fluidTankHandler = new FluidTank(capacity);
-		items = NonEmptyItemList.create();
+		items            = NonEmptyItemList.create();
 		items.add(ItemStack.EMPTY);
 		itemHandler = new ItemStackHandler(items);
 	}
-
-	public SaucepanBlockEntity(BlockPos pos, BlockState blockState) {
-		this(pos, blockState, 1000);
-	}
-
+	
 	/**
 	 * 执行炖锅的刻数更新
 	 *
@@ -69,8 +69,9 @@ public class SaucepanBlockEntity extends RandomizableContainerBlockEntity {
 	 * @param state       方块状态
 	 * @param blockEntity 方块实体
 	 */
-	public static void tick(Level level, BlockPos pos, BlockState state, SaucepanBlockEntity blockEntity) {}
-
+	public static void tick(Level level, BlockPos pos, BlockState state, SaucepanBlockEntity blockEntity) {
+	}
+	
 	public static SaucepanBlockEntity getBlockEntity(BlockGetter level, BlockPos pos) {
 		return level.getBlockEntity(pos, SAUCEPAN_BLOCK_ENTITY_TYPE.get()).orElse(null);
 	}
@@ -79,7 +80,31 @@ public class SaucepanBlockEntity extends RandomizableContainerBlockEntity {
 //	public @NotNull BlockState getBlockState() {
 //		return super.getBlockState().setValue();
 //	}
-
+	
+	/**
+	 * 处理接收到的数据包
+	 *
+	 * @param connection 连接
+	 * @param packet     数据包
+	 * @param registries 标签提供者
+	 */
+	@Override
+	public void onDataPacket(@NotNull Connection connection, @NotNull ClientboundBlockEntityDataPacket packet, HolderLookup.@NotNull Provider registries) {
+		super.onDataPacket(connection, packet, registries);
+	}
+	
+	/**
+	 * 处理更新标签
+	 *
+	 * @param nbt        更新标签
+	 * @param registries 标签提供者
+	 */
+	@Override
+	public void handleUpdateTag(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider registries) {
+		super.handleUpdateTag(nbt, registries);
+		loadAdditional(nbt, registries);
+	}
+	
 	/**
 	 * 从NBT标签中加载额外数据
 	 */
@@ -93,7 +118,7 @@ public class SaucepanBlockEntity extends RandomizableContainerBlockEntity {
 			NonEmptyItemList.loadAllItems(nbt, items, registries);
 		}
 	}
-
+	
 	/**
 	 * 将额外数据保存到NBT标签中
 	 *
@@ -110,79 +135,12 @@ public class SaucepanBlockEntity extends RandomizableContainerBlockEntity {
 			ContainerHelper.saveAllItems(nbt, items, registries);
 		}
 	}
-
+	
 	@Override
 	protected @NotNull Component getDefaultName() {
 		return null;
 	}
-
-	/**
-	 * 获取更新数据包
-	 *
-	 * @return 更新数据包
-	 */
-	@Override
-	public Packet<ClientGamePacketListener> getUpdatePacket() {
-		return ClientboundBlockEntityDataPacket.create(this);
-	}
-
-	/**
-	 * 处理接收到的数据包
-	 *
-	 * @param connection 连接
-	 * @param packet     数据包
-	 * @param registries 标签提供者
-	 */
-	@Override
-	public void onDataPacket(@NotNull Connection connection, @NotNull ClientboundBlockEntityDataPacket packet, HolderLookup.@NotNull Provider registries) {
-		super.onDataPacket(connection, packet, registries);
-	}
-
-	/**
-	 * 清空炖锅中的内容物
-	 */
-	@Override
-	public void clearContent() {
-		super.clearContent();
-		setChanged();
-	}
-
-	@Override
-	public AbstractContainerMenu createMenu(int containerId, @NotNull Inventory playerInventory, @NotNull Player player) {
-		return null;
-	}
-
-	/**
-	 * 创建容器菜单
-	 */
-	@Override
-	protected @NotNull AbstractContainerMenu createMenu(int containerId, @NotNull Inventory inventory) {
-		return null;
-	}
-
-	/**
-	 * 获取更新标签
-	 *
-	 * @param registries 标签提供者
-	 * @return 更新标签
-	 */
-	@Override
-	public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider registries) {
-		return saveWithoutMetadata(registries);
-	}
-
-	/**
-	 * 处理更新标签
-	 *
-	 * @param nbt        更新标签
-	 * @param registries 标签提供者
-	 */
-	@Override
-	public void handleUpdateTag(@NotNull CompoundTag nbt, HolderLookup.@NotNull Provider registries) {
-		super.handleUpdateTag(nbt, registries);
-		loadAdditional(nbt, registries);
-	}
-
+	
 	/**
 	 * 获取物品列表
 	 *
@@ -192,7 +150,7 @@ public class SaucepanBlockEntity extends RandomizableContainerBlockEntity {
 	public @NotNull NonNullList<ItemStack> getItems() {
 		return this.items;
 	}
-
+	
 	/**
 	 * 设置物品列表
 	 *
@@ -209,7 +167,84 @@ public class SaucepanBlockEntity extends RandomizableContainerBlockEntity {
 		}
 		setChanged();
 	}
-
+	
+	/**
+	 * 清空炖锅中的内容物
+	 */
+	@Override
+	public void clearContent() {
+		super.clearContent();
+		setChanged();
+	}
+	
+	/**
+	 * 创建容器菜单
+	 */
+	@Override
+	protected @NotNull AbstractContainerMenu createMenu(int containerId, @NotNull Inventory inventory) {
+		return null;
+	}
+	
+	@Override
+	public void setChanged() {
+		super.setChanged();
+		items.update();
+	}
+	
+	/**
+	 * 获取更新数据包
+	 *
+	 * @return 更新数据包
+	 */
+	@Override
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
+	}
+	
+	/**
+	 * 获取更新标签
+	 *
+	 * @param registries 标签提供者
+	 * @return 更新标签
+	 */
+	@Override
+	public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider registries) {
+		return saveWithoutMetadata(registries);
+	}
+	
+	public ItemStack addItem(ItemStack itemStack) {
+		this.items.add(itemStack.copyWithCount(1));
+		itemStack.shrink(1);
+		setChanged();
+		return itemStack;
+	}
+	
+	public int getCookingTick() {
+		return this.cookingTick;
+	}
+	
+	public int getTotalTick() {
+		return this.totalTick;
+	}
+	
+	@Override
+	public int getContainerSize() {
+		return items.size();
+	}
+	
+	@Override
+	public int getMaxStackSize() {
+		return 1;
+	}
+	
+	@Override
+	public @NotNull ItemStack removeItem(int index, int count) {
+		if (items.size() - 1 < index) {
+			return ItemStack.EMPTY;
+		}
+		return super.removeItem(index, count);
+	}
+	
 	@Override
 	public void setItem(int index, @NotNull ItemStack stack) {
 		if (items.isEmpty()) {
@@ -218,53 +253,19 @@ public class SaucepanBlockEntity extends RandomizableContainerBlockEntity {
 		}
 		super.setItem(index, stack);
 	}
-
+	
 	@Override
-	public int getMaxStackSize() {
-		return 1;
+	public AbstractContainerMenu createMenu(int containerId, @NotNull Inventory playerInventory, @NotNull Player player) {
+		return null;
 	}
-
-	public int getCookingTick() {
-		return this.cookingTick;
-	}
-
-	public int getTotalTick() {
-		return this.totalTick;
-	}
-
-	public ItemStack addItem(ItemStack itemStack) {
-		this.items.add(itemStack.copyWithCount(1));
-		itemStack.shrink(1);
-		setChanged();
-		return itemStack;
-	}
-
-	@Override
-	public int getContainerSize() {
-		return items.size();
-	}
-
-	@Override
-	public @NotNull ItemStack removeItem(int index, int count) {
-		if (items.size() - 1 < index) {
-			return ItemStack.EMPTY;
-		}
-		return super.removeItem(index, count);
-	}
-
-	@Override
-	public void setChanged() {
-		super.setChanged();
-		items.update();
-	}
-
+	
 	public void updateFluid() {
 	}
-
+	
 	public IItemHandler getItemHandler() {
 		return itemHandler;
 	}
-
+	
 	public IFluidHandler getFluidTankHandler() {
 		return fluidTankHandler;
 	}

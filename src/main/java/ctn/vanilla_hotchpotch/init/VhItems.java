@@ -18,20 +18,23 @@ import static net.minecraft.world.item.Items.BUCKET;
 
 public class VhItems {
 	public static final DeferredRegister.Items ITEM_REGISTER = DeferredRegister.createItems(VH_ID);
-
+	
 	public static final DeferredItem<BlockItem> SAUCEPAN = createBlockItem("saucepan", VhBlocks.SAUCEPAN, new Item.Properties().component(DataComponents.CONTAINER, ItemContainerContents.EMPTY));
 	
-	public static final DeferredItem<Item> POTION_BUCKET = createBucketItem("potion_bucket", VhFluids.POTION_FLUID.get(), new Item.Properties().craftRemainder(BUCKET).stacksTo(1));
+	public static final DeferredItem<Item> POTION_BUCKET = createBucketItem("potion_bucket",
+			VhFluids.POTION_FLUID, new Item.Properties()
+					.craftRemainder(BUCKET)
+					.stacksTo(1));
 	
 	private static DeferredItem<BlockItem> createBlockItem(String name, Supplier<? extends Block> block, Item.Properties properties) {
 		return ITEM_REGISTER.registerSimpleBlockItem(name, block, properties);
 	}
-
+	
 	private static DeferredItem<Item> createItem(String name, Function<Item.Properties, ? extends Item> item, Item.Properties properties) {
 		return ITEM_REGISTER.registerItem(name, item, properties);
 	}
 	
-	private static DeferredItem<Item> createBucketItem(String name, Fluid fluid, Item.Properties properties) {
-		return createItem(name, (p) -> new BucketItem(fluid, p), properties);
+	private static DeferredItem<Item> createBucketItem(String name, Supplier<? extends Fluid> fluid, Item.Properties properties) {
+		return ITEM_REGISTER.registerItem(name, (p) -> new BucketItem(fluid.get(), properties));
 	}
 }

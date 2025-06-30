@@ -16,16 +16,16 @@ import static ctn.vanilla_hotchpotch.init.VhBlocks.SAUCEPAN;
 
 public class VhBlockEntityTypes {
 	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPE_REGISTER = DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, VH_ID);
-
+	
 	private static <B extends BlockEntity> Supplier<BlockEntityType<B>> register(final String name, BlockEntityType.BlockEntitySupplier<B> blockEntity, Supplier<Block> blocks) {
 		return registerBlockEntity(name, () -> BlockEntityType.Builder.of(blockEntity, blocks.get()).build(null));
 	}
-
+	
 	private static <I extends BlockEntityType<?>> DeferredHolder<BlockEntityType<?>, I> registerBlockEntity(String name, final Supplier<? extends I> sup) {
 		return BLOCK_ENTITY_TYPE_REGISTER.register(name, sup);
 	}
-
+	
 	public static final Supplier<BlockEntityType<SaucepanBlockEntity>> SAUCEPAN_BLOCK_ENTITY_TYPE = register("saucepan_block_entity", SaucepanBlockEntity::new, SAUCEPAN::get);
-
-
+	
+	
 }

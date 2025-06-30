@@ -1,17 +1,242 @@
 {
   "variants": {
-    "facing=east": {
+    "facing=east,light_level=0": {
       "model": "vanilla_hotchpotch:block/saucepan",
       "y": 90
     },
-    "facing=north": {
+    "facing=east,light_level=1": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 90
+    },
+    "facing=east,light_level=10": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 90
+    },
+    "facing=east,light_level=11": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 90
+    },
+    "facing=east,light_level=12": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 90
+    },
+    "facing=east,light_level=13": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 90
+    },
+    "facing=east,light_level=14": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 90
+    },
+    "facing=east,light_level=15": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 90
+    },
+    "facing=east,light_level=2": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 90
+    },
+    "facing=east,light_level=3": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 90
+    },
+    "facing=east,light_level=4": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 90
+    },
+    "facing=east,light_level=5": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 90
+    },
+    "facing=east,light_level=6": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 90
+    },
+    "facing=east,light_level=7": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 90
+    },
+    "facing=east,light_level=8": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 90
+    },
+    "facing=east,light_level=9": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 90
+    },
+    "facing=north,light_level=0": {
       "model": "vanilla_hotchpotch:block/saucepan"
     },
-    "facing=south": {
+    "facing=north,light_level=1": {
+      "model": "vanilla_hotchpotch:block/saucepan"
+    },
+    "facing=north,light_level=10": {
+      "model": "vanilla_hotchpotch:block/saucepan"
+    },
+    "facing=north,light_level=11": {
+      "model": "vanilla_hotchpotch:block/saucepan"
+    },
+    "facing=north,light_level=12": {
+      "model": "vanilla_hotchpotch:block/saucepan"
+    },
+    "facing=north,light_level=13": {
+      "model": "vanilla_hotchpotch:block/saucepan"
+    },
+    "facing=north,light_level=14": {
+      "model": "vanilla_hotchpotch:block/saucepan"
+    },
+    "facing=north,light_level=15": {
+      "model": "vanilla_hotchpotch:block/saucepan"
+    },
+    "facing=north,light_level=2": {
+      "model": "vanilla_hotchpotch:block/saucepan"
+    },
+    "facing=north,light_level=3": {
+      "model": "vanilla_hotchpotch:block/saucepan"
+    },
+    "facing=north,light_level=4": {
+      "model": "vanilla_hotchpotch:block/saucepan"
+    },
+    "facing=north,light_level=5": {
+      "model": "vanilla_hotchpotch:block/saucepan"
+    },
+    "facing=north,light_level=6": {
+      "model": "vanilla_hotchpotch:block/saucepan"
+    },
+    "facing=north,light_level=7": {
+      "model": "vanilla_hotchpotch:block/saucepan"
+    },
+    "facing=north,light_level=8": {
+      "model": "vanilla_hotchpotch:block/saucepan"
+    },
+    "facing=north,light_level=9": {
+      "model": "vanilla_hotchpotch:block/saucepan"
+    },
+    "facing=south,light_level=0": {
       "model": "vanilla_hotchpotch:block/saucepan",
       "y": 180
     },
-    "facing=west": {
+    "facing=south,light_level=1": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 180
+    },
+    "facing=south,light_level=10": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 180
+    },
+    "facing=south,light_level=11": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 180
+    },
+    "facing=south,light_level=12": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 180
+    },
+    "facing=south,light_level=13": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 180
+    },
+    "facing=south,light_level=14": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 180
+    },
+    "facing=south,light_level=15": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 180
+    },
+    "facing=south,light_level=2": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 180
+    },
+    "facing=south,light_level=3": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 180
+    },
+    "facing=south,light_level=4": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 180
+    },
+    "facing=south,light_level=5": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 180
+    },
+    "facing=south,light_level=6": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 180
+    },
+    "facing=south,light_level=7": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 180
+    },
+    "facing=south,light_level=8": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 180
+    },
+    "facing=south,light_level=9": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 180
+    },
+    "facing=west,light_level=0": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 270
+    },
+    "facing=west,light_level=1": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 270
+    },
+    "facing=west,light_level=10": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 270
+    },
+    "facing=west,light_level=11": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 270
+    },
+    "facing=west,light_level=12": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 270
+    },
+    "facing=west,light_level=13": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 270
+    },
+    "facing=west,light_level=14": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 270
+    },
+    "facing=west,light_level=15": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 270
+    },
+    "facing=west,light_level=2": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 270
+    },
+    "facing=west,light_level=3": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 270
+    },
+    "facing=west,light_level=4": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 270
+    },
+    "facing=west,light_level=5": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 270
+    },
+    "facing=west,light_level=6": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 270
+    },
+    "facing=west,light_level=7": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 270
+    },
+    "facing=west,light_level=8": {
+      "model": "vanilla_hotchpotch:block/saucepan",
+      "y": 270
+    },
+    "facing=west,light_level=9": {
       "model": "vanilla_hotchpotch:block/saucepan",
       "y": 270
     }

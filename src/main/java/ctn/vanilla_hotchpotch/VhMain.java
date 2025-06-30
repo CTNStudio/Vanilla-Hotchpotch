@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import static ctn.vanilla_hotchpotch.init.VhBlockEntityTypes.BLOCK_ENTITY_TYPE_REGISTER;
 import static ctn.vanilla_hotchpotch.init.VhBlocks.BLOCK_REGISTER;
 import static ctn.vanilla_hotchpotch.init.VhEntitys.ENTITY_TYPE_REGISTER;
+import static ctn.vanilla_hotchpotch.init.VhFluidTypes.FLUID_TYPE_REGISTER;
+import static ctn.vanilla_hotchpotch.init.VhFluids.FLUID_REGISTER;
 import static ctn.vanilla_hotchpotch.init.VhItems.ITEM_REGISTER;
 import static ctn.vanilla_hotchpotch.init.VhTabs.MOON_TAB_REGISTER;
 
@@ -19,16 +21,18 @@ import static ctn.vanilla_hotchpotch.init.VhTabs.MOON_TAB_REGISTER;
 public class VhMain {
 	public static final String VH_ID  = "vanilla_hotchpotch";
 	public static final Logger LOGGER = LogUtils.getLogger();
-
+	
 	public VhMain(IEventBus modEventBus, ModContainer modContainer) {
-		ITEM_REGISTER.register(modEventBus);
+		FLUID_TYPE_REGISTER.register(modEventBus);
+		FLUID_REGISTER.register(modEventBus);
 		BLOCK_REGISTER.register(modEventBus);
+		ITEM_REGISTER.register(modEventBus);
 		ENTITY_TYPE_REGISTER.register(modEventBus);
 		BLOCK_ENTITY_TYPE_REGISTER.register(modEventBus);
 		MOON_TAB_REGISTER.register(modEventBus);
 		NeoForge.EVENT_BUS.register(this);
 	}
-
+	
 	@SubscribeEvent
 	public void onServerStarting(ServerStartingEvent event) {
 		LOGGER.info("Vanilla hotchpotch from server starting");

@@ -5,7 +5,6 @@ import ctn.vanilla_hotchpotch.mixin_extend.IModFluidState;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.level.material.FluidState;
-import net.neoforged.neoforge.fluids.FluidType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,20 +13,19 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 public class PotionFluidHandler implements IPotionFluid {
-	private static final Logger log = LogManager.getLogger(PotionFluidHandler.class);
-	private final NonNullList<MobEffectInstance> effects;
+	private static final Logger                         log = LogManager.getLogger(PotionFluidHandler.class);
+	private final        NonNullList<MobEffectInstance> effects;
 	
-	public PotionFluidHandler(List<MobEffectInstance> effects){
+	public PotionFluidHandler(List<MobEffectInstance> effects) {
 		this.effects = NonNullList.copyOf(effects);
 	}
 	
-	public PotionFluidHandler(){
+	public PotionFluidHandler() {
 		this.effects = NonNullList.create();
 	}
 	
-	public PotionFluidHandler(FluidState state){
+	public PotionFluidHandler(FluidState state) {
 		IPotionFluid invoke = null;
-		(IModFluidState)state
 		try {
 			Method method = IModFluidState.class.getMethod("getPotionFluidBlock");
 			invoke = (IPotionFluid) method.invoke(state);
@@ -40,6 +38,11 @@ public class PotionFluidHandler implements IPotionFluid {
 		} else {
 			this.effects = null;
 		}
+	}
+	
+	public static PotionFluidHandler create(final FluidState state) {
+		final PotionFluidHandler potionFluidHandler = new PotionFluidHandler(state);
+		return potionFluidHandler.getEffects() != null ? potionFluidHandler : null;
 	}
 	
 	@Override

@@ -25,24 +25,24 @@ import static ctn.vanilla_hotchpotch.VhMain.VH_ID;
 public class VhTags {
 	public static class Blocks extends BlockTagsProvider {
 		public static final TagKey<Block> SAUCEPAN = createTag("saucepan");
-
+		
 		public Blocks(PackOutput output,
 				CompletableFuture<HolderLookup.Provider> lookupProvider,
 				@Nullable ExistingFileHelper existingFileHelper) {
 			super(output, lookupProvider, VH_ID, existingFileHelper);
 		}
-
+		
 		protected static TagKey<net.minecraft.world.level.block.Block> createTag(String name) {
 			return BlockTags.create(ResourceLocation.fromNamespaceAndPath(VH_ID, name));
 		}
-
+		
 		@Override
 		protected void addTags(HolderLookup.@NotNull Provider provider) {
 			tag(BlockTags.MINEABLE_WITH_PICKAXE).add(VhBlocks.SAUCEPAN.get());
 			tag(SAUCEPAN).add(VhBlocks.SAUCEPAN.get());
 		}
 	}
-
+	
 	public static class Items extends ItemTagsProvider {
 		public Items(PackOutput output,
 				CompletableFuture<HolderLookup.Provider> lookupProvider,
@@ -50,31 +50,31 @@ public class VhTags {
 				@Nullable ExistingFileHelper existingFileHelper) {
 			super(output, lookupProvider, blockTags, VH_ID, existingFileHelper);
 		}
-
+		
 		protected static TagKey<Item> createTag(String name) {
 			return ItemTags.create(ResourceLocation.fromNamespaceAndPath(VH_ID, name));
 		}
-
+		
 		@Override
 		protected void addTags(HolderLookup.@NotNull Provider provider) {
-
+		
 		}
 	}
-
+	
 	public static class Fluids extends FluidTagsProvider {
 		public Fluids(PackOutput output,
 				CompletableFuture<HolderLookup.Provider> provider,
 				@Nullable ExistingFileHelper existingFileHelper) {
 			super(output, provider, VH_ID, existingFileHelper);
 		}
-
+		
 		protected static TagKey<Fluid> createTag(String name) {
 			return FluidTags.create(ResourceLocation.fromNamespaceAndPath(VH_ID, name));
 		}
-
+		
 		@Override
 		protected void addTags(HolderLookup.@NotNull Provider provider) {
-
+		
 		}
 	}
 }

@@ -30,6 +30,6 @@ public class VhDatagenMain {
 		VhTags.Blocks blocksTags = new VhTags.Blocks(output, lookupProvider, fileHelper);
 		generator.addProvider(event.includeClient(), blocksTags);
 		generator.addProvider(event.includeClient(), new VhTags.Items(output, lookupProvider, blocksTags.contentsGetter(), fileHelper));
-
+		
 	}
 }

@@ -13,16 +13,16 @@ import static ctn.vanilla_hotchpotch.VhMain.VH_ID;
 @WailaPlugin
 public class VhPlugin implements IWailaPlugin {
 	public static final ResourceLocation SAUCEPAN = getResourceLocation("saucepan");
-
+	
 	private static @NotNull ResourceLocation getResourceLocation(String name) {
 		return ResourceLocation.fromNamespaceAndPath(VH_ID, name);
 	}
-
+	
 	@Override
 	public void register(IWailaCommonRegistration registration) {
 		registration.registerBlockDataProvider(SaucepanComponentProvider.INSTANCE, SaucepanBlock.class);
 	}
-
+	
 	@Override
 	public void registerClient(IWailaClientRegistration registration) {
 		registration.registerBlockComponent(SaucepanComponentProvider.INSTANCE, SaucepanBlock.class);

@@ -35,7 +35,14 @@ public class SaucepanBlock extends AbstractSaucepanBlock<SaucepanBlockEntity> {
 	 * 用于序列化和反序列化该方块。
 	 */
 	private static final MapCodec<SaucepanBlock> CODEC  = simpleCodec(SaucepanBlock::new);
-
+	
+	/**
+	 * 构造函数
+	 */
+	public SaucepanBlock(Properties properties) {
+		this(properties, 1000);
+	}
+	
 	/**
 	 * 构造函数。
 	 * 初始化方块的基本属性。
@@ -43,14 +50,17 @@ public class SaucepanBlock extends AbstractSaucepanBlock<SaucepanBlockEntity> {
 	public SaucepanBlock(Properties properties, int capacity) {
 		super(properties, capacity, SAUCEPAN_BLOCK_ENTITY_TYPE::get);
 	}
-
-	/**
-	 * 构造函数
-	 */
-	public SaucepanBlock(Properties properties) {
-		this(properties, 1000);
+	
+	@Override
+	protected @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
+		return SHAPE;
 	}
-
+	
+	@Override
+	protected @NotNull VoxelShape getInteractionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+		return INSIDE;
+	}
+	
 	/**
 	 * 获取编码器。
 	 */
@@ -58,7 +68,7 @@ public class SaucepanBlock extends AbstractSaucepanBlock<SaucepanBlockEntity> {
 	protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
 		return CODEC;
 	}
-
+	
 	/**
 	 * 创建新的方块实体。
 	 * 在给定位置创建一个新的方块实体。
@@ -66,15 +76,5 @@ public class SaucepanBlock extends AbstractSaucepanBlock<SaucepanBlockEntity> {
 	@Override
 	public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
 		return new SaucepanBlockEntity(pos, state, getCapacity());
-	}
-
-	@Override
-	protected @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos, @NotNull CollisionContext context) {
-		return SHAPE;
-	}
-
-	@Override
-	protected @NotNull VoxelShape getInteractionShape(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-		return INSIDE;
 	}
 }

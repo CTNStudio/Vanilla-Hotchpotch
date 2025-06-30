@@ -1,8 +1,8 @@
 package ctn.vanilla_hotchpotch.mixin;
 
+import com.mojang.serialization.MapCodec;
 import ctn.vanilla_hotchpotch.capability.IPotionFluid;
 import ctn.vanilla_hotchpotch.capability_provider.PotionFluidHandler;
-import com.mojang.serialization.MapCodec;
 import ctn.vanilla_hotchpotch.common.fluid.PotionFluid;
 import ctn.vanilla_hotchpotch.mixin_extend.IModFluidState;
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
@@ -27,6 +27,10 @@ public abstract class FluidStateMixin extends StateHolder<Fluid, FluidState> imp
 	@Nullable
 	private PotionFluidHandler vanillaHotchpotch$potionFluidBlockHandler;
 	
+	protected FluidStateMixin(Fluid owner, Reference2ObjectArrayMap<Property<?>, Comparable<?>> values, MapCodec<FluidState> propertiesCodec) {
+		super(owner, values, propertiesCodec);
+	}
+	
 	@Inject(method = "<init>", at = @At("RETURN"))
 	public void vanillaHotchpotch$FluidStateMixin(Fluid owner, Reference2ObjectArrayMap<Property<?>, Comparable<?>> values, MapCodec<FluidState> propertiesCodec, CallbackInfo ci) {
 		if (owner instanceof PotionFluid) {
@@ -38,9 +42,5 @@ public abstract class FluidStateMixin extends StateHolder<Fluid, FluidState> imp
 	@Nullable
 	public IPotionFluid vanillaHotchpotchInt$getPotionFluidBlock() {
 		return vanillaHotchpotch$potionFluidBlockHandler;
-	}
-	
-	protected FluidStateMixin(Fluid owner, Reference2ObjectArrayMap<Property<?>, Comparable<?>> values, MapCodec<FluidState> propertiesCodec) {
-		super(owner, values, propertiesCodec);
 	}
 }

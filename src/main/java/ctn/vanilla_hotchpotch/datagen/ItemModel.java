@@ -11,7 +11,7 @@ public class ItemModel extends ItemModelProvider {
 	public ItemModel(PackOutput output, ExistingFileHelper existingFileHelper) {
 		super(output, VH_ID, existingFileHelper);
 	}
-
+	
 	@Override
 	protected void registerModels() {
 		simpleBlockItem(VhBlocks.SAUCEPAN.get());

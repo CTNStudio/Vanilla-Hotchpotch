@@ -21,7 +21,7 @@ import java.util.List;
 
 public enum SaucepanComponentProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
 	INSTANCE;
-
+	
 	public static void renderingItems(ITooltip tooltip, NonNullList<ItemStack> items) {
 		if (!items.isEmpty()) {
 			int i = 0;
@@ -37,13 +37,13 @@ public enum SaucepanComponentProvider implements IBlockComponentProvider, IServe
 			}
 		}
 	}
-
+	
 	/**
 	 * 渲染流体信息
 	 */
 	public static void renderingFluid(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config, CompoundTag nbt) {
 		FluidView fluidView = FluidView.readDefault(nbt.getCompound("fluidStorage"));
-
+		
 		if (fluidView == null) {
 			return;
 		}
@@ -92,12 +92,12 @@ public enum SaucepanComponentProvider implements IBlockComponentProvider, IServe
 					}
 				});
 	}
-
+	
 	@Override
 	public @Nullable IElement getIcon(BlockAccessor accessor, IPluginConfig config, IElement currentIcon) {
 		return IBlockComponentProvider.super.getIcon(accessor, config, currentIcon);
 	}
-
+	
 	@Override
 	public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
 		CompoundTag nbt = accessor.getServerData();
@@ -106,16 +106,16 @@ public enum SaucepanComponentProvider implements IBlockComponentProvider, IServe
 
 //		renderingItems(tooltip, items);
 //		renderingFluid(tooltip, accessor, config, nbt);
-
+		
 		tooltip.add(Component.literal(String.valueOf(nbt.getInt("cookingTick"))));
 		tooltip.add(Component.literal(String.valueOf(nbt.getInt("totalTick"))));
 	}
-
+	
 	@Override
 	public ResourceLocation getUid() {
 		return VhPlugin.SAUCEPAN;
 	}
-
+	
 	@Override
 	public void appendServerData(CompoundTag nbt, BlockAccessor accessor) {
 		SaucepanBlockEntity furnace = (SaucepanBlockEntity) accessor.getBlockEntity();
@@ -129,7 +129,7 @@ public enum SaucepanComponentProvider implements IBlockComponentProvider, IServe
 //						fluidStack.getAmount(),
 //						fluidStack.getComponentsPatch()),
 //				furnace.getCapacity()));
-
+		
 		nbt.putInt("cookingTick", furnace.getTotalTick());
 		nbt.putInt("totalTick", furnace.getCookingTick());
 	}
